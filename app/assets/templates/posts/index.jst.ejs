@@ -1,0 +1,10 @@
+<h2> Posts Index </h2>
+<ul>
+<% posts.each( function (post) { %>
+  <li> <a href="#posts/<%= post.get('id')%>"> <%= post.get("title") %> </a>
+	</li>
+	<button data-id="<%= post.get('id') %>" class="delete-button" >Delete</button>
+<% }); %>
+</ul>
+
+<a href="#posts/new">New Post </a>

@@ -1,0 +1,13 @@
+<h2> Post Form </h2>
+
+<form class="post-form">
+	<label> Title:
+		<input type="text" value="<%= post.get('title') %>" name="post[title]">
+	</label>
+	
+	<label> Body:
+		<input type="text" value="<%= post.get('body') %>" name="post[body]">
+	</label>
+	
+	<button class="submit-button" data-id="<%= post.get('id')%>">Submit </button>
+</form>
