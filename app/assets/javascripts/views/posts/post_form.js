@@ -25,18 +25,39 @@ JournalApp.Views.PostForm = Backbone.View.extend({
 		var attrs = $(".post-form").serializeJSON().post;
 		var id = $(event.currentTarget).data("id");
 		if (id) {
-			this.collection.create(attrs, {
+			this.model.save(attrs, {
 				success: (function () {
-					Backbone.history.navigate("#", {trigger: true})
+					$('.errors').empty();
+					Backbone.history.navigate("#/posts/" + id, {trigger: true})
+				}).bind(this),
+				
+				error: (function (model, response) {
+					var resp = JSON.parse(response.responseText);
+					var str = "";
+					if(resp.body) 
+						str += "Body " + resp.body;
+					if(resp.title)
+						str += " <br>Title " + resp.title;
+					$('.errors').html(str);
 				}).bind(this)
 			});
 		} else {
-			this.model.save(attrs, {
+			var newModel = new JournalApp.Models.Post();
+			var that = this;
+			newModel.save(attrs, {
 				success: (function () {
-					Backbone.history.navigate("#", {trigger: true})
+					this.collection.add(newModel);
+					$('.errors').empty();
+					Backbone.history.navigate("#/posts/" + newModel.get('id'), {trigger: true});
 				}).bind(this), 
-				error: (function () {
-					Backbone.history.navigate("#/posts/" + this.model.get("id"), {trigger: true})
+				error: (function (model, response) {
+					var resp = JSON.parse(response.responseText);
+					var str = "";
+					if(resp.body) 
+						str += "Body " + resp.body;
+					if(resp.title)
+						str += " <br>Title " + resp.title;
+					$('.errors').html(str);
 				}).bind(this)
 			});
 		}

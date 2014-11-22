@@ -2,20 +2,22 @@ JournalApp.Routers.Posts = Backbone.Router.extend({
 	
 	initialize: function (options) {
 		this.$el = options.$el;
+		this.$sidebar = options.$sidebar;
+		this._renderSideBar();
 	},
 	
 	routes: {
-		"": "postIndex",
+		"": "postNew",
 		"posts/new": "postNew",
 		"posts/:id": "postShow",
 	},
 	
 	postIndex: function () {
-		var newView = new JournalApp.Views.PostsIndex({ 
-			collection: JournalApp.posts 
+		var newView = new JournalApp.Views.PostsIndex({
+			collection: JournalApp.posts
 		});
 		JournalApp.posts.fetch();
-		
+
 		this._swapView(newView);
 	},
 	
@@ -42,16 +44,18 @@ JournalApp.Routers.Posts = Backbone.Router.extend({
 		this._swapView(newView);
 	},
 	
+	_renderSideBar: function() {
+		var sidebarView = new JournalApp.Views.PostsIndex({ 
+			collection: JournalApp.posts 
+		});
+		JournalApp.posts.fetch();
+		this.$sidebar.html(sidebarView.render().$el);
+	},
+	
 	_swapView: function (newView) {
 	  this._currentView && this._currentView.remove();
 	  this._currentView = newView;
 	  this.$el.html(newView.render().$el);
 	}
 	
-});
-
-$(function () {
-	var $div = $(".posts");
-	var postRouter = new JournalApp.Routers.Posts({$el: $div});
-	Backbone.history.start();
 });

@@ -1,3 +1,26 @@
 // Place all the styles related to the RootController controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.sidebar {
+	display: inline-block;
+	width: 250px;
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	border: 2px dotted salmon;
+}
+
+.posts {
+	display: inline-block;
+	width: 500px;
+	position: absolute;
+	left: 250px;
+	top: 60px;
+	border: 2px dotted salmon;
+}
+.errors {
+//	position: absolute;
+//	right: 0;
+	color: red;
+}
