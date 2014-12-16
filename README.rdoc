@@ -1,4 +1,4 @@
-Main Project: Journal App
+Project: Journal App
 
 Focus:
 
